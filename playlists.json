@@ -1,0 +1,13 @@
+{
+    "root_folder" : "./music",
+    "playlists" : [
+        {
+            "name" : "Testing",
+            "link" : "https://open.spotify.com/playlist/1BskiChTCgImj7qSUQzxEJ?si=03c54be9c0104d8f"
+        },
+        {
+            "name" : "Testing2",
+            "link" : "https://open.spotify.com/playlist/48CwqRGWeaFCREpT8m6Ws4?si=3eacf998189f42e9"
+        }
+    ]
+}
