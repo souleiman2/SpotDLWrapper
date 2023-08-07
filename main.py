@@ -3,11 +3,11 @@ from utils import read_json, name_to_path
 from google_drive_uploader import GoogleDriveUploader
 
 def update_playlist(root_folder, playlists):
-    query_builder = lambda link, folder_path : "spotdl {} --output {}".format(link, folder_path)
+    query_builder = lambda link, folder_path : f"spotdl {link} --output {folder_path}"
     for elem in playlists:
         folder_path = name_to_path(root_folder, elem["name"])
         os.system(query_builder(elem["link"], folder_path))
-        os.system("ls {} | sed 's#^.*/##' > {}".format(os.path.join(folder_path, "*.mp3"), os.path.join(folder_path, "music_list.txt")))
+        os.system(f"ls {os.path.join(folder_path, '*.mp3')} | sed 's#^.*/##' > {os.path.join(folder_path, 'music_list.txt')}")
 
 print("For the playlist list you can update the list manually.")
 
