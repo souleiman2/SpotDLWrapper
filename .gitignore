@@ -1,6 +1,12 @@
 # Created by https://www.toptal.com/developers/gitignore/api/python
 # Edit at https://www.toptal.com/developers/gitignore?templates=python
 
+music/*
+client_secrets.json
+credentials.json
+settings.yaml
+
+
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/

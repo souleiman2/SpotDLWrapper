@@ -1,37 +1,31 @@
 import os
-import json
-
-def read_csv(filename):
-    with open(filename, 'r') as f:
-        data = json.load(f)
-    return data
-
-def write_csv():
-    pass
+from utils import read_json, name_to_path
+from google_drive_uploader import GoogleDriveUploader
 
 def update_playlist(root_folder, playlists):
-    format_name = lambda string : '_'.join(string.lower().strip().split(" "))
     query_builder = lambda link, folder_path : "spotdl {} --output {}".format(link, folder_path)
     for elem in playlists:
-        folder_path = os.path.join(root_folder, format_name(elem["name"]))
+        folder_path = name_to_path(root_folder, elem["name"])
         os.system(query_builder(elem["link"], folder_path))
-        os.system("ls {} | sed s/^.*\\/\// > {}".format(os.path.join(folder_path, "*.mp3"), os.path.join(folder_path, "music_list.txt")))
-
+        os.system("ls {} | sed 's#^.*/##' > {}".format(os.path.join(folder_path, "*.mp3"), os.path.join(folder_path, "music_list.txt")))
 
 print("For the playlist list you can update the list manually.")
 
-val = None
+val = "2"
 while val not in ["1","2","3"]:
     val = input("""Press either 1, 2 or 3:
     - 1 for updating the playlists locally
-    - 2 for updating the playlists online
+    - 2 for updating the playlists online (from the local version)
     - 3 for updating both (locally then online)
-    - 4 to cancel and stop""")
+    - 4 to cancel and stop
+
+    Enter you answer :""")
+
 val = int(val)
 
 
 if val != 4:
-    data = read_csv("playlists.json")
+    data = read_json("playlists.json")
     root_folder, playlists = data["root_folder"], data["playlists"]
 
     if val == 1 or val == 3:
@@ -40,20 +34,8 @@ if val != 4:
     
     if val == 2 or val == 3:
         # update the online list of music
-        google_driver = GoogleDriveUploader()
-        google_driver.upload()
+        google_driver = GoogleDriveUploader(playlists, root_folder)
+        google_driver.update_playlist(playlist=playlists[0])
 else:
     exit()
-
-
-
-
-
-
-
-
-
-
-
-
 
