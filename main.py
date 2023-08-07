@@ -11,7 +11,7 @@ def update_playlist(root_folder, playlists):
 
 print("For the playlist list you can update the list manually.")
 
-val = "2"
+val = None
 while val not in ["1","2","3"]:
     val = input("""Press either 1, 2 or 3:
     - 1 for updating the playlists locally
@@ -35,7 +35,7 @@ if val != 4:
     if val == 2 or val == 3:
         # update the online list of music
         google_driver = GoogleDriveUploader(playlists, root_folder)
-        google_driver.update_playlist(playlist=playlists[0])
+        google_driver.update_all_playlists()
 else:
     exit()
 

@@ -5,6 +5,7 @@ music/*
 client_secrets.json
 credentials.json
 settings.yaml
+playlists.json
 
 
 ### Python ###
